@@ -1,0 +1,21 @@
+.bgImage {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  color: rgb(255, 255, 255);
+}
+
+.bgImage::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../src/assets/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8; /* adjust this value for desired fade effect */
+    z-index: -1;
+    
+}
