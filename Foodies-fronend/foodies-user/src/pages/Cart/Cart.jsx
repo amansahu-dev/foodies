@@ -1,73 +1,91 @@
 import React, { useContext } from 'react';
-import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 
 const Cart = () => {
-    const {foodList ,increaseQty, decreaseQty ,quantities} = useContext(StoreContext); 
+    const {foodList ,increaseQty, decreaseQty ,quantities, removeFromCart} = useContext(StoreContext); 
 
     const cartItems = foodList.filter(food => quantities[food.id]>0);
-
     //calculations
     const subtotal = cartItems.reduce((acc,food)=> acc + food.price * quantities[food.id] , 0)
+
+    const shipping = subtotal === 0 ? 0.0 : 10;
+    const tax = subtotal * 0.1; //10% tax
+    const total  = subtotal + shipping + tax;
     return (
     <>
         <div className="cart-wrapper">
             <div className="container">
                 <div className="row g-4">
-                    <div className="col-lg-8">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h4 className="mb-0">Shopping Cart</h4>
-                            <span className="text-muted">3 items</span>
-                        </div>
-
-                        <div className="d-flex flex-column gap-3">
-                            <div className="card p-2 shadow-sm">
-                                <div className="row align-items-center">
-                                    <div className="col-md-2">
-                                        <img src={assets.logo} alt="Product" className="card-img-top"/>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <h6 className="mb-1">Wireless Headphones</h6>
-                                        <p className="text-muted mb-0">Black | Premium Series</p>
-                                        <span className="bg-warning badge text-dark">20% OFF</span>
-                                    </div>
-                                    <div className="col-md-3">
-                                        <form className="d-flex align-items-center input-group">
-                                            <button className="btn btn-outline-danger" onClick=""><i className='bi bi-dash-circle'></i></button>
-                                            <input type="text" className="form-control text-center"/>
-                                            <button className="btn btn-outline-success" onClick=""><i className='bi bi-plus-circle'></i></button>
-                                        </form>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <span className="fw-bold">&#8377; 129.99</span>
-                                    </div>
-                                    <div className="col-md-1">
-                                        <i className="bi bi-trash remove-btn text-danger fs-4"></i>
-                                    </div>
+                    <div className="col-lg-8">                    
+                    {
+                            cartItems.length === 0? (
+                                <p>Your cart is empty!</p>
+                            ): (
+                        <div>
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <h4 className="mb-0">Shopping Cart</h4>
+                                <span className="text-muted">{cartItems.length} items</span>
+                            </div>
+                            <div className="d-flex flex-column gap-3">
+                                <div className="card p-2 shadow-sm">
+                                {
+                                    cartItems.map((food)=>(
+                                        <div key={food.id} className="row align-items-center">
+                                            <div className="col-md-2">
+                                                <img src={food.imageUrl} alt={food.name} className="card-img-top img-fluid"/>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h6 className="mb-1">{food.name}</h6>
+                                                <p className="text-muted mb-0">{food.description}</p>
+                                                <div className='text-muted'>
+                                                    category: <span className="bg-warning badge text-dark">{food.category}</span>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3">
+                                                <div className="d-flex align-items-center input-group">
+                                                    <button className="btn btn-outline-danger" onClick={() => decreaseQty(food.id)}><i className='bi bi-dash-circle'></i></button>
+                                                    <input type="text" className="form-control text-center" value={quantities[food.id]} readOnly/>
+                                                    <button className="btn btn-outline-success" onClick={() => increaseQty(food.id)}><i className='bi bi-plus-circle'></i></button>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-2">
+                                                <span className="fw-bold">&#8377; {(food.price * quantities[food.id]).toFixed(2)}</span>
+                                            </div>
+                                            <div className='col-md-1'>
+                                                <button className="btn btn-sm btn-outline-danger" onClick={()=>removeFromCart(food.id)}>
+                                                    <i className="bi bi-trash fs-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
                                 </div>
                             </div>
                         </div>
+                            )
+                        }
                     </div>
+                    
                     <div className="col-lg-4">
                         <div className="card p-4 shadow-sm">
                             <h5 className="mb-4">Order Summary</h5>
                             
                             <div className="d-flex justify-content-between mb-3">
                                 <span className="text-muted">Subtotal</span>
-                                <span>$479.97</span>
+                                <span>&#8377;{subtotal.toFixed(2)}</span>
                             </div>
                             <div className="d-flex justify-content-between mb-3">
                                 <span className="text-muted">Shipping</span>
-                                <span className="text-success">-$26.00</span>
+                                <span>&#8377;{subtotal === 0 ? 0.0 : shipping.toFixed(2)}</span>
                             </div>
                             <div className="d-flex justify-content-between mb-3">
                                 <span className="text-muted">Tax</span>
-                                <span>$5.00</span>
+                                <span>&#8377;{tax.toFixed(2)}</span>
                             </div>
                             <hr/>
                             <div className="d-flex justify-content-between mb-4">
                                 <span className="fw-bold">Total</span>
-                                <span className="fw-bold">$458.97</span>
+                                <span className="fw-bold">&#8377;{subtotal === 0 ? 0.0 :total.toFixed(2)}</span>
                             </div>
 
                             {/* <div className="mb-4">
@@ -77,7 +95,7 @@ const Cart = () => {
                                 </div>
                             </div> */}
 
-                            <button className="btn btn-dark w-100 mb-3">
+                            <button className="btn btn-dark w-100 mb-3" disabled={cartItems.length === 0}>
                                 Proceed to Checkout
                             </button>
                             

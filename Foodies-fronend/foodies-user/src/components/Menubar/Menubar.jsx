@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink } from "react-router-dom";
 import {assets} from '../../assets/assets'
+import { StoreContext } from '../../context/StoreContext';
 
 const Menubar = () => {
+  const {quantities} = useContext(StoreContext);
+  const itemCount = Object.values(quantities).filter(qty => qty>0).length;
+  const [active,setActive] = useState('home');
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-secondary px-3 position-fixed w-100" style={{zIndex:"100"}}>
@@ -14,6 +18,7 @@ const Menubar = () => {
               width="35"
               height="35"
               aria-hidden="true"
+              onClick={()=> setActive('home')}
             />
             <span className="fs-4">Foodies</span>
           </NavLink>
@@ -31,17 +36,17 @@ const Menubar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/home">
+                <NavLink className={active === 'home'? "nav-link fw-bold" : "nav-link"} to="/home" onClick={()=> setActive('home')}>
                   Home
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/explore">
+                <NavLink className={active === 'explore'? "nav-link fw-bold" : "nav-link"} aria-current="page" to="/explore" onClick={()=> setActive('explore')}>
                   Explore
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
+                <NavLink className={active === 'contact'? "nav-link fw-bold" : "nav-link"} to="/contact" onClick={()=> setActive('contact')}>
                   Contact Us
                 </NavLink>
               </li>
@@ -50,7 +55,7 @@ const Menubar = () => {
               <NavLink className="nav-link" to="/cart">
                 <div className="position-relative me-2">
                     <img src={assets.cart} alt="" className='positon-relative' height={35} width={35}  />
-                    <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>5</span>
+                    <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>{itemCount}</span>
                 </div>
               </NavLink>
                 <button className='btn btn-outline-primary'>Login</button>

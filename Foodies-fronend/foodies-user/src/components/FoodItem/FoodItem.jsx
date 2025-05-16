@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import { toast } from 'react-toastify';
 
 const FoodItem = ({name,description,id,imageUrl,price}) => {
     const {increaseQty, decreaseQty ,quantities} = useContext(StoreContext); 
@@ -35,7 +36,10 @@ const FoodItem = ({name,description,id,imageUrl,price}) => {
                         <button className='btn btn-outline-success btn-sm' onClick={()=>increaseQty(id)}><i className='bi bi-plus-circle'></i></button>
                     </div>
                 ) : (
-                    <button className='btn btn-dark btn-sm' onClick={()=>increaseQty(id)}>
+                    <button className='btn btn-dark btn-sm' onClick={()=>{
+                        increaseQty(id); 
+                        toast.dark(`${name} added to cart!`);
+                        }}>
                         <i className='bi bi-cart-plus'></i>
                     </button>
                 )

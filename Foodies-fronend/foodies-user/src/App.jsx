@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify'
 import './App.css'
 import FoodSection from './components/FoodSection/FoodSection'
 import Menubar from './components/Menubar/Menubar'
