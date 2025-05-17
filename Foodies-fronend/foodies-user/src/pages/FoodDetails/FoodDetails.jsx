@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fetchFood } from '../../service/foodService';
+import { StoreContext } from '../../context/StoreContext';
+import { toast } from 'react-toastify';
 
 const FoodDetails = () => {
     const {id} = useParams();
     const [food,setFood] = useState({});
+    const {increaseQty, decreaseQty ,quantities} = useContext(StoreContext); 
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const loadFood = async()=>{
@@ -29,13 +33,25 @@ const FoodDetails = () => {
                         <span>&#8377; {food.price}</span>
                     </div>
                     <p className="lead">{food.description}</p>
-                    <div className="d-flex">
-                        <input className="form-control text-center me-3" id="inputQuantity" type="num" style={{maxWidth: "3rem"}} />
-                        <button className="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i className="bi-cart-fill me-1"></i>
-                            Add to cart
+                    {
+                        quantities[id] > 0 ? (
+                        <div>
+                            <div className="d-flex align-items-center gap-2">
+                                <button className='btn btn-outline-danger btn-sm' onClick={()=>decreaseQty(id)}><i className="bi bi-dash-circle"></i></button>
+                                <span className='fw-bold'>{quantities[id]}</span>
+                                <button className='btn btn-outline-success btn-sm' onClick={()=>increaseQty(id)}><i className='bi bi-plus-circle'></i></button>
+                                <button className='btn btn-dark btn-sm'onClick={()=> navigate('/cart')}><i className='bi bi-cart'> Go to cart</i></button>
+                            </div>
+                        </div>
+                        ) : (
+                        <button className='btn btn-dark' onClick={()=>{
+                            increaseQty(id); 
+                            toast.dark(`${food.name} added to cart!`);
+                            }}>
+                            <i className='bi bi-cart'> Add to cart</i>
                         </button>
-                    </div>
+                        )
+                    }
                 </div>
             </div>
         </div>

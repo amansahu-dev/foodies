@@ -3,7 +3,7 @@ import React from 'react'
 const Contact = () => {
   return (
     <section className="d-flex align-items-center" style={{minHeight:"80vh"}}>
-      <div className="container card w-50 bg-body-secondary">
+      <div className="container card col-10 col-md-6  bg-body-secondary">
           <div className="row justify-content-center">
               <div className="col-lg-10">
                   <div className="contact-form p-3">

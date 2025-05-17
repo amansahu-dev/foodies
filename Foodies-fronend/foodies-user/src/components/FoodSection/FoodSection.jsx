@@ -6,6 +6,7 @@ import Contact from "../../pages/ContactUs/Contact";
 import Explore from "../../pages/ExploreFood/Explore";
 import FoodDetails from "../../pages/FoodDetails/FoodDetails";
 import Cart from "../../pages/Cart/Cart";
+import PlaceOrder from "../../pages/PlaceOrder/PlaceOrder";
 
 const FoodSection = () => {
   return (
@@ -19,6 +20,7 @@ const FoodSection = () => {
             <Route path="/explore" element={<Explore/>}></Route>
             <Route path="/food/:id" element={<FoodDetails/>}></Route>
             <Route path="/cart" element={<Cart/>}></Route>
+            <Route path="/order" element={<PlaceOrder/>}></Route>
         </Routes>
       </div>
     </>

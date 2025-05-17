@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 const FoodItem = ({name,description,id,imageUrl,price}) => {
     const {increaseQty, decreaseQty ,quantities} = useContext(StoreContext); 
   return (
-    <div className="col-12 col-sm-6 col-md-3 mb-4 d-flex justify-content-center ">
+    <div className="col-6 col-md-3 col-lg-3 mb-4 d-flex justify-content-center ">
         <div className="card flex-grow-1">
             <Link to={`/food/${id}`}>
-                <img src={imageUrl} className="card-img-top object-fit-contain" height={230}  alt="Product Image"/>
+                <img src={imageUrl} className="card-img-top object-fit-contain"  alt="Product Image"/>
             </Link>
             <div className="card-body">
                 <h5 className="card-title">{name}</h5>
