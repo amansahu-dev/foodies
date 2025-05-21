@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import './PlaceOrder.css';
 import {StoreContext} from '../../context/StoreContext';
 import { calculateCartTotals } from '../../util/cartUtil';
 

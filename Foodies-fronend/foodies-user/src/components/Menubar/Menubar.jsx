@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {assets} from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext';
 
@@ -7,6 +7,7 @@ const Menubar = () => {
   const {quantities} = useContext(StoreContext);
   const itemCount = Object.values(quantities).filter(qty => qty>0).length;
   const [active,setActive] = useState('home');
+  const navigate = useNavigate();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-secondary px-3 position-fixed w-100" style={{zIndex:"100"}}>
@@ -58,8 +59,8 @@ const Menubar = () => {
                     <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>{itemCount}</span>
                 </div>
               </NavLink>
-                <button className='btn btn-outline-primary'>Login</button>
-                <button className='btn btn-outline-success'>SignUp</button>
+                <button className='btn btn-outline-primary' onClick={()=> navigate('/login')}>Login</button>
+                <button className='btn btn-outline-success' onClick={()=> navigate('/register')}>SignUp</button>
             </div>
           </div>
         </div>

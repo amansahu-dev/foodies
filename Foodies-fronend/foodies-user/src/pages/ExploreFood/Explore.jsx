@@ -6,7 +6,7 @@ const Explore = () => {
   const [searchText, setSearchText] = useState('');
   return (
     <>
-    <div className="container">
+    <div className="container mt-3">
       <div className="row justify-content-center">
          <div className="col-md-6">
             <form onSubmit={(e)=>e.preventDefault()}>

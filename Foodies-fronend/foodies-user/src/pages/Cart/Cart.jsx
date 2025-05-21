@@ -10,7 +10,7 @@ const Cart = () => {
     const {subtotal,shipping,tax,total} = calculateCartTotals(cartItems,quantities);
     return (
     <>
-        <div className="cart-wrapper">
+        <div className="cart-wrapper mt-3">
             <div className="container">
                 <div className="row g-4">
                     <div className="col-lg-8">                    
