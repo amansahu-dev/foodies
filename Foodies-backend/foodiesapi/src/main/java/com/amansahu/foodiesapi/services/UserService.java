@@ -6,4 +6,5 @@ import com.amansahu.foodiesapi.io.UserResponse;
 public interface UserService {
 	
 	UserResponse registerUser(UserRequest userRequest);
+	String findByUserId();
 }
