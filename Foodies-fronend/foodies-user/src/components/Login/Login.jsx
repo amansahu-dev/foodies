@@ -1,7 +1,46 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './Login.css';
+import { useContext, useState } from 'react';
+import { loginUser } from '../../service/authService';
+import { toast } from 'react-toastify';
+import { StoreContext } from '../../context/StoreContext';
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    const {setToken,loadCartData} = useContext(StoreContext);
+    const [data,setData] = useState({
+        email: '',
+        password:''
+    });
+
+    const onChangeHandler = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setData(data => ({...data,[name]:value}));
+    }
+    
+    const onSubmitHandler = async (event) =>{
+        event.preventDefault();
+        try{
+            const response = await loginUser(data);
+            if(response.status==200){
+                toast.success("Login Successfull");
+                setToken(response.data.token);
+                localStorage.setItem('token',response.data.token);
+                await loadCartData(localStorage.getItem('token'));
+                navigate('/');
+            }
+            else{
+                toast.error("Unable to login. Please try again") 
+            }
+        } catch(error){
+            console.log("Error while login: ",error);
+            toast.error("Unable to login. Please try again")
+        }
+    }
+    
+
     return (
         <div className="container-fluid login-container">
             <div className="row justify-content-center align-items-center h-100">
@@ -9,13 +48,13 @@ const Login = () => {
                     <div className="card rounded-3">
                         <div className="card-body p-5">
                             <h5 className="card-title text-center mb-4 fs-4">Login</h5>
-                            <form>
+                            <form onSubmit={onSubmitHandler}>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
+                                    <input type="email" className="form-control" name='email' value={data.email} onChange={onChangeHandler} id="floatingInput" placeholder="name@example.com"/>
                                     <label htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
+                                    <input type="password" className="form-control" name='password' value={data.password} onChange={onChangeHandler} id="floatingPassword" placeholder="Password"/>
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
                                 <div className="d-grid mb-2">

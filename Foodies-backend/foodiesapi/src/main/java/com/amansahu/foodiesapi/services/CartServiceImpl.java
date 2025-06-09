@@ -70,7 +70,5 @@ public class CartServiceImpl implements CartService {
 		}
 		return convertToResponse(cart);
 	}
-
-
-	
+	 
 }

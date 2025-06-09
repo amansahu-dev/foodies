@@ -9,8 +9,9 @@ import icecream from './ice-cream.jpeg';
 import pizza from './pizza.jpeg';
 import salad from './salad.jpeg';
 import rolls from './rolls.jpeg';
+import user from './user.png';
 
-export const assets = {logo,parcel,cart};
+export const assets = {logo,parcel,cart,user};
 
 export const categories = [
     {

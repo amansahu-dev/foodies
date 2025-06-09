@@ -2,16 +2,26 @@ import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import {assets} from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext';
+import './Menubar.css';
 
 const Menubar = () => {
-  const {quantities} = useContext(StoreContext);
+  const {quantities,token,setToken,setQuantities} = useContext(StoreContext);
   const itemCount = Object.values(quantities).filter(qty => qty>0).length;
   const [active,setActive] = useState('home');
   const navigate = useNavigate();
+
+  const logout = () => {
+    console.log("logout called");
+    localStorage.removeItem('token');
+    setToken("");
+    navigate('/home')
+    setQuantities({})
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-secondary px-3 position-fixed w-100" style={{zIndex:"100"}}>
-        <div className="container-fluid">
+        <div className="container">
           <NavLink className="navbar-brand" to="/">
             <img
               className="me-2 rounded-circle"
@@ -59,8 +69,23 @@ const Menubar = () => {
                     <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>{itemCount}</span>
                 </div>
               </NavLink>
-                <button className='btn btn-outline-primary' onClick={()=> navigate('/login')}>Login</button>
-                <button className='btn btn-outline-success' onClick={()=> navigate('/register')}>SignUp</button>
+                {
+                  !token ?
+                    ( <>
+                        <button className='btn btn-outline-primary' onClick={()=> navigate('/login')}>Login</button>
+                        <button className='btn btn-outline-success' onClick={()=> navigate('/register')}>SignUp</button>
+                      </> 
+                    )
+                  : <div className='dropdown'>
+                      <a href="" className='d-block link-body-emphasis text-decoration-none dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src={assets.user} alt="" height={32} width={32} className='rounded-circle'/>
+                      </a>
+                    <ul className='dropdown-menu' style={{left:"-100%"}}>
+                      <li className='dropdown-item cursor-pointer' onClick={()=>{navigate("/myorders")}}>Orders</li>
+                      <li className='dropdown-item cursor-pointer' onClick={logout}>Logout</li>
+                    </ul>
+                  </div>
+                } 
             </div>
           </div>
         </div>
