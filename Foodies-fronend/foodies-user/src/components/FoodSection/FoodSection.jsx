@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Home from "../../pages/Home/Home";
@@ -9,8 +9,13 @@ import Cart from "../../pages/Cart/Cart";
 import PlaceOrder from "../../pages/PlaceOrder/PlaceOrder";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import MyOrders from "../../pages/MyOrders/MyOrders";
+import { StoreContext } from "../../context/StoreContext";
 
 const FoodSection = () => {
+
+  const {token} = useContext(StoreContext);
+
   return (
     <>
       <div style={{marginTop:"10vh"}}>
@@ -22,9 +27,10 @@ const FoodSection = () => {
             <Route path="/explore" element={<Explore/>}></Route>
             <Route path="/food/:id" element={<FoodDetails/>}></Route>
             <Route path="/cart" element={<Cart/>}></Route>
-            <Route path="/order" element={<PlaceOrder/>}></Route>
-            <Route path="/login" element={<Login/>}></Route>
-            <Route path="/register" element={<Register/>}></Route>
+            <Route path="/order" element={token ? <PlaceOrder/>: <Login/>}></Route>
+            <Route path="/login" element={token ? <Home/> :<Login/>}></Route>
+            <Route path="/register" element={token ? <Home/> : <Register/>}></Route>
+            <Route path="/myorders" element={token ? <MyOrders/> : <Login/>}></Route>
         </Routes>
       </div>
     </>

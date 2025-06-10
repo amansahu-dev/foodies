@@ -41,7 +41,7 @@ public class OrderController {
 		orderService.verifyPayment(paymentData, "paid");
 	}
 	
-	@GetMapping("/orders")
+	@GetMapping
 	public ResponseEntity<List<OrderResponse>> getOrder(){
 		List<OrderResponse> response = orderService.getUserOrders();
 		return new ResponseEntity<List<OrderResponse>>(response,HttpStatus.OK);

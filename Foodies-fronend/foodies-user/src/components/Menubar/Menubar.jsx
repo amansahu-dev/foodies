@@ -65,20 +65,20 @@ const Menubar = () => {
             <div className='d-flex align-items-center gap-3'>
               <NavLink className="nav-link" to="/cart">
                 <div className="position-relative me-2">
-                    <img src={assets.cart} alt="" className='positon-relative' height={35} width={35}  />
+                    <img src={assets.cart} alt="" className='positon-relative' height={30} width={30}  />
                     <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning'>{itemCount}</span>
                 </div>
               </NavLink>
                 {
                   !token ?
                     ( <>
-                        <button className='btn btn-outline-primary' onClick={()=> navigate('/login')}>Login</button>
-                        <button className='btn btn-outline-success' onClick={()=> navigate('/register')}>SignUp</button>
+                        <button className='btn btn-outline-primary btn-sm' onClick={()=> navigate('/login')}>Login</button>
+                        <button className='btn btn-outline-success btn-sm' onClick={()=> navigate('/register')}>SignUp</button>
                       </> 
                     )
                   : <div className='dropdown'>
                       <a href="" className='d-block link-body-emphasis text-decoration-none dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={assets.user} alt="" height={32} width={32} className='rounded-circle'/>
+                        <img src={assets.user} alt="" height={30} width={30} className='rounded-circle'/>
                       </a>
                     <ul className='dropdown-menu' style={{left:"-100%"}}>
                       <li className='dropdown-item cursor-pointer' onClick={()=>{navigate("/myorders")}}>Orders</li>

@@ -7,7 +7,7 @@ const Sidebar = () => {
     <>
       <div
         className="d-none d-md-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-        style={{ width: "15vw", height: "100vh" }}
+        style={{ width: "15vw", height: "100vh", position:"sticky", left:"0", top: "0" }}
       >
         <NavLink
           to="/"
