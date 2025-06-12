@@ -9,7 +9,7 @@ const MyOrders = () => {
 
     const fetchOrders = async () =>{
         console.log("Fetching orders");
-        const response = await axios.get("http://localhost:8080/api/orders", {headers:{"Authorization": `Bearer ${token}`}});
+        const response = await axios.get("https://foodeeshub.up.railway.app/api/orders", {headers:{"Authorization": `Bearer ${token}`}});
         setData(response.data);
     };
 

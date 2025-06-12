@@ -5,14 +5,14 @@ import {assets} from '../../assets/assets';
 const Orders = () => {
   const [data, setData] = useState([]);
   const updateStatus = async (event,orderId) =>{
-    const response = await axios.patch(`http://localhost:8080/api/orders/update-status/${orderId}?status=${event.target.value}`);
+    const response = await axios.patch(`https://foodeeshub.up.railway.app/api/orders/update-status/${orderId}?status=${event.target.value}`);
     if(response.status===200){
       await fetchOrders();
     }
   }
 
   const fetchOrders = async () => {
-    const response = await axios.get("http://localhost:8080/api/orders/all");
+    const response = await axios.get("https://foodeeshub.up.railway.app/api/orders/all");
     setData(response.data);
   };
 

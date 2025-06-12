@@ -50,7 +50,7 @@ const PlaceOrder = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/api/orders/create",orderData,{headers:{"Authorization":`Bearer ${token}`}});
+            const response = await axios.post("https://foodeeshub.up.railway.app/api/orders/create",orderData,{headers:{"Authorization":`Bearer ${token}`}});
             console.log("response: ",response);
             if(response.status === 201 && response.data.razorpayOrderId){
                 //intitate the payment
@@ -104,7 +104,7 @@ const PlaceOrder = () => {
         console.log(paymentData);
 
         try {
-            const response = await axios.post("http://localhost:8080/api/orders/verify", paymentData,{headers:{"Authorization": `Bearer ${token}`}});
+            const response = await axios.post("https://foodeeshub.up.railway.app/api/orders/verify", paymentData,{headers:{"Authorization": `Bearer ${token}`}});
             console.log("Verify response: ",response);
             if(response.status === 200){
                 toast.success("Payment Successfull.");
@@ -122,7 +122,7 @@ const PlaceOrder = () => {
 
     const deleteOrder = async(orderId) =>{
         try{
-            await axios.delete("http://localhost:8080/api/orders/"+orderId, {headers:{"Authorization":`Bearer ${token}`}});
+            await axios.delete("https://foodeeshub.up.railway.app/api/orders/"+orderId, {headers:{"Authorization":`Bearer ${token}`}});
         } catch(error){
             toast.error("Something went wrong!");
             console.log("Error while deleting orders",error);
@@ -131,7 +131,7 @@ const PlaceOrder = () => {
 
     const clearCart = async () =>{
         try {
-            await axios.delete("http://localhost:8080/api/cart", {headers:{"Authorization":`Bearer ${token}`}});
+            await axios.delete("https://foodeeshub.up.railway.app/api/cart", {headers:{"Authorization":`Bearer ${token}`}});
             setQuantities({});
         } catch (error) {
             toast.error("Error while clearing the cart.");
