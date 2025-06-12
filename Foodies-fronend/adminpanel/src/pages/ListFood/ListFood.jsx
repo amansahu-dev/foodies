@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./ListFood.css";
-import { deleteFood, getFoodList } from "../../services/foodservice";
+import { deleteFood, getFoodList } from "../../services/foodService";
 
 const ListFood = () => {
   const [list, setList] = useState([]);
