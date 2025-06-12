@@ -43,7 +43,7 @@ public class FoodServiceImpl implements FoodService{
 				.description(food.getDescription())
 				.price(food.getPrice())
 				.category(food.getCategory())
-				.imageUrl("http://localhost:8080/api/food/get-food-image/"+food.getId())
+				.imageUrl("https://foodeeshub.up.railway.app/api/food/get-food-image/"+food.getId())
 				.build();
 	}
 
