@@ -49,7 +49,7 @@ public class SecurityConfig {
 	// STEP:2->3
 	private UrlBasedCorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(List.of("http://localhost:5173","http://localhost:5174"));
+		config.setAllowedOrigins(List.of("https://foodeeshub.netlify.app/"));
 		config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS","PATCH"));
 		config.setAllowedHeaders(List.of("Authorization","Content-Type"));
 		config.setAllowCredentials(true);
